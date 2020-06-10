@@ -4,6 +4,10 @@ long long TimeGetElapsed(struct timeval t0, struct timeval t1) {
     return (t1.tv_sec - t0.tv_sec) * 1e6 + (t1.tv_usec - t0.tv_usec);
 }
 
+void NcursesCenterMessage(const char* message) {
+    mvprintw(LINES / 2, (COLS / 2) - strlen(message)/2, message);
+}
+
 void NcursesInit(void) {
     initscr();             /* start curses mode */
     start_color();
@@ -24,9 +28,10 @@ void NcursesInit(void) {
 
 void NcursesExit(void) {
     nodelay(stdscr, FALSE); /* allow getch to block */
-    mvprintw(LINES / 2, (COLS / 2) - strlen(EXIT_MESSAGE)/2, EXIT_MESSAGE);
+    NcursesCenterMessage(EXIT_MESSAGE);
     refresh();
     getch();
     endwin();
     exit(EXIT_SUCCESS);
 }
+

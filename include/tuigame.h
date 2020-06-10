@@ -22,6 +22,7 @@ enum {
     WHITE, RED, YELLOW, GREEN
 };
 long long TimeGetElapsed(struct timeval t0, struct timeval t1);
+void NcursesCenterMessage(const char*);
 void NcursesInit(void);
 void NcursesExit(void);
 
