@@ -7,9 +7,18 @@
 #define SPEED_DEC 20000
 
 #define FOOD_LEN 10
+
+void intro() {
+    nodelay(stdscr, FALSE);
+    NcursesCenterMessage("READY? (LEFT = A, RIGHT = D, UP = W, DOWN = S)");
+    getch();
+    NcursesCenterMessage("                                              ");
+    nodelay(stdscr, TRUE);
+}
+
 int main() {
     NcursesInit();
-
+    intro();
     srand(time(0));
     int food = FOOD_LEN,
         score = 0,
@@ -72,6 +81,17 @@ int main() {
         mvprintw(0, 10, "Score: %4d | Head: (%2d, %2d) | Cols: %d | Lines: %d",
                 score, snake->head->x, snake->head->y, COLS, LINES);
         gettimeofday(&t0, NULL);
+        if (!run) {
+            nodelay(stdscr, FALSE);
+            NcursesCenterMessage("PLAY AGAIN?");
+            refresh();
+            int response = getch();
+            if (response != 'n') {
+                nodelay(stdscr, TRUE);
+                run = true;
+                SnakeInit(snake);
+            }
+        }
     }
     NcursesExit();
     return 1;
