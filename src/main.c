@@ -16,6 +16,14 @@ void intro() {
     nodelay(stdscr, TRUE);
 }
 
+void populateField(int field[MAX_ROWS][MAX_COLS]) {
+    FieldPlaceVContent(field, WALL, 9, 9, 10, WHITE, '|');
+    FieldPlaceHContent(field, WALL, 12, 9, 10, WHITE, '"');
+    FieldPlaceHContent(field, WALL, 15, 11, 10, WHITE, '"');
+    FieldDropContent(field, FOOD, FOOD_LEN, YELLOW, '$');
+    FieldDropContent(field, POISON, 20, GREEN, '!');
+}
+
 int main() {
     NcursesInit();
     intro();
@@ -26,11 +34,7 @@ int main() {
         userInput = ERR;
     bool run = true;
     int field[MAX_ROWS][MAX_COLS] = {0};
-    FieldPlaceVContent(field, WALL, 9, 9, 10, WHITE, '|');
-    FieldPlaceHContent(field, WALL, 12, 9, 10, WHITE, '"');
-    FieldPlaceHContent(field, WALL, 15, 11, 10, WHITE, '"');
-    FieldDropContent(field, FOOD, FOOD_LEN, YELLOW, '$');
-    FieldDropContent(field, POISON, 20, GREEN, '!');
+    populateField(field);
     struct timeval t0, t1;
     gettimeofday(&t0, NULL);
     struct Snake *snake = &snake_;
